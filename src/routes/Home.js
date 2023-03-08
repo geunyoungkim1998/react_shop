@@ -9,7 +9,7 @@ import Title2 from '../Component/Title2';
 import nike from '../nike';
 
 function Home(props){
-    let[res1,setRes1]=useState([0,1,2,3,4,5,6,7,8]);
+    // let[res,setRes]=useState([0,1,2,3,4,5,6,7,8]);
     let[nike1,setNike1]=useState(nike);
     let[count,setCount]=useState(1);
     return(
@@ -22,11 +22,11 @@ function Home(props){
             let copy=[...props.shoes].sort((a,b)=>a.title>b.title ? 1:-1);
             props.setShoes(copy);
             props.shoes=copy;
-            let rescopy=[];
-            for(let i in props.shoes){
-                res1.push(props.shoes[i].id)
+            let res1=[];
+            for(let i in copy){
+                res1.push(copy[i].id)
             }
-            setRes1(res1=rescopy);
+            props.setRes1(res1);
         }}
         >이름순 정렬</Button>{' '}
         <Button variant="outline-primary"
@@ -34,29 +34,29 @@ function Home(props){
             let copy=[...props.shoes].sort((a,b)=>a.price>b.price ? 1:-1);
             props.setShoes(copy);
             props.shoes=copy;
-            let rescopy=[];
-            for(let i in props.shoes){
-                res1.push(props.shoes[i].id)
+            let res1=[];
+            for(let i in copy){
+                res1.push(copy[i].id)
             }
-            setRes1(res1=rescopy);
+            props.setRes1(res1);
         }}>낮은 가격순 정렬</Button>{' '}
         <Button variant="outline-primary"
         onClick={()=>{
             let copy=[...props.shoes].sort((a,b)=>a.price<b.price ? 1:-1);
             props.setShoes(copy);
             props.shoes=copy;
-            let rescopy=[];
-            for(let i in props.shoes){
-                res1.push(props.shoes[i].id)
+            let res1=[];
+            for(let i in copy){
+                res1.push(copy[i].id)
             }
-            setRes1(res1=rescopy);
+            props.setRes1(res1);
         }}>높은 가격순 정렬</Button>{' '}
         <Container>
           <Row>
             {
               props.shoes.map((v,i)=>{
               return(
-              <Product shoes={props.shoes[i]} i={i} res1={res1} setRes1={setRes1}/>
+              <Product shoes={props.shoes[i]} i={i} res={props.res}/>
             )
             })
           }

@@ -2,16 +2,21 @@ import './App.css';
 
 import {Container,Nav,Navbar} from 'react-bootstrap';
 import data from './data';
-import {useState} from 'react';
+import {useState,createContext} from 'react';
 import{Routes,Route,Link,useNavigate} from 'react-router-dom';
 
 import Home from './routes/Home';
 import About from './routes/About';
 import Detail from './routes/Detail';
+import Cart from './Cart';
+
+export let Context1=createContext();
 
 function App() {
   let[shoes,setShoes]=useState(data);
   let navigate=useNavigate();
+  let[res,setRes]=useState([0,1,2,3,4,5,6,7,8]);
+  let[remain,setRemain]=useState([10,11,12]);
 
   return (
     <div className='App'>
@@ -31,10 +36,14 @@ function App() {
       <Link to='/detail'>상세페이지</Link> */}
 
       <Routes>
-        <Route path='/' element={<Home shoes={shoes} setShoes={setShoes}/>}>
+        <Route path='/' element={<Home shoes={shoes} setShoes={setShoes} setRes={setRes} res={res}/>}>
         </Route>
-        <Route path='/detail/:id' element={<Detail shoes={shoes}/>}></Route>
-        <Route path='/cart' element={<div>Cart</div>}></Route>
+        <Route path='/detail/:id' element={
+          <Context1.Provider value={{remain}}>
+            <Detail shoes={shoes}/>
+            </Context1.Provider>
+        }></Route>
+        <Route path='/cart' element={<Cart/>}></Route>
         <Route path='/about' element={<About/>}>
           <Route path='member' element={<div>멤버입니다.</div>}></Route>
           <Route path='location' element={<div>위치입니다.</div>}></Route>
@@ -55,11 +64,11 @@ function Footer(){
       marginBottom:'0'
   }
   return(
-      <>
-          <p style={fcss}>
-              COPYRIGHT(C) 2022 Nike, Inc. All Rights Reserved
-          </p>
-      </>
+    <>
+      <p style={fcss}>
+        COPYRIGHT(C) 2022 Nike, Inc. All Rights Reserved
+      </p>
+    </>
   )
 }
 

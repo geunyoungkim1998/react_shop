@@ -6,7 +6,7 @@ function Product(props){
     return(
       <Col md={4}>
         <Nav.Link onClick={()=>{
-          navigate('/detail/'+props.res1[props.i])
+          navigate('/detail/'+props.res[props.i])
         }} className='c1'>
           <img src={props.shoes.imgUrl} width='80%' alt='item'/>
           <h4>{props.shoes.title}</h4>
